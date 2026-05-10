@@ -1,0 +1,20 @@
+title: East Coast Modular
+description: File storage repository
+theme: jekyll-theme-minimal
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+
+# Site settings
+url: "https://deepiain.github.io"
+baseurl: ""
+
+# Jekyll settings
+exclude:
+  - README.md
+  - LICENSE
+  - .gitignore
+
+# Enable collections for file organization
+collections_dir: files
