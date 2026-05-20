@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Files — East Coast Modular</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-foreground: 18, 18, 18;
+      --color-background: 255, 255, 255;
+      --color-button: 252, 228, 119;
+      --color-button-text: 18, 18, 18;
+      --font: 'Inter', sans-serif;
+      --radius: 5px;
+      --page-width: 140rem;
+      --gutter: clamp(1.5rem, 5vw, 5rem);
+    }
+
+    body {
+      background: rgb(var(--color-background));
+      color: rgba(var(--color-foreground), 0.75);
+      font-family: var(--font);
+      font-size: 1rem;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem var(--gutter);
+      border-bottom: 1px solid rgba(var(--color-foreground), 0.08);
+    }
+
+    .header__logo {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: rgb(var(--color-foreground));
+      text-decoration: none;
+    }
+
+    .header__link {
+      font-size: 0.875rem;
+      color: rgba(var(--color-foreground), 0.55);
+      text-decoration: none;
+      transition: color 150ms;
+    }
+
+    .header__link:hover {
+      color: rgb(var(--color-foreground));
+    }
+
+    /* ── Page layout ── */
+    .page {
+      max-width: min(var(--page-width), 100% - (var(--gutter) * 2));
+      margin: 0 auto;
+      padding: 4rem var(--gutter);
+    }
+
+    .page__title {
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 400;
+      color: rgb(var(--color-foreground));
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+
+    .page__subtitle {
+      font-size: 0.875rem;
+      color: rgba(var(--color-foreground), 0.5);
+      margin-bottom: 3rem;
+    }
+
+    /* ── Module grid ── */
+    .module-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    .module-card {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .module-card__name {
+      font-size: 1.125rem;
+      font-weight: 500;
+      color: rgb(var(--color-foreground));
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+
+    .module-card__base {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(var(--color-foreground), 0.4);
+      margin-top: 0.15rem;
+    }
+
+    .module-card__divider {
+      height: 1px;
+      background: rgba(var(--color-foreground), 0.08);
+    }
+
+    .module-card__files {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    /* ── Download buttons ── */
+    .btn-download {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.6rem 1rem;
+      background: rgb(var(--color-button));
+      color: rgb(var(--color-button-text));
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      border-radius: var(--radius);
+      border: 1px solid rgb(var(--color-button));
+      transition: filter 150ms, transform 150ms;
+      line-height: 1;
+    }
+
+    .btn-download:hover {
+      filter: brightness(0.95);
+    }
+
+    .btn-download:active {
+      transform: scale(0.98);
+    }
+
+    .btn-download--secondary {
+      background: transparent;
+      border-color: rgba(var(--color-foreground), 0.15);
+      color: rgba(var(--color-foreground), 0.75);
+    }
+
+    .btn-download--secondary:hover {
+      filter: none;
+      border-color: rgba(var(--color-foreground), 0.4);
+      color: rgb(var(--color-foreground));
+    }
+
+    .btn-type {
+      font-size: 0.7rem;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+      opacity: 0.55;
+      min-width: 2.4rem;
+      text-align: right;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      border-top: 1px solid rgba(var(--color-foreground), 0.08);
+      padding: 2rem var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      font-size: 0.8rem;
+      color: rgba(var(--color-foreground), 0.4);
+    }
+
+    .footer a {
+      color: rgba(var(--color-foreground), 0.4);
+      text-decoration: none;
+      transition: color 150ms;
+    }
+
+    .footer a:hover {
+      color: rgb(var(--color-foreground));
+    }
+
+    @media (max-width: 500px) {
+      .module-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a class="header__logo" href="https://www.eastcoastmodular.co.uk">East Coast Modular</a>
+    <a class="header__link" href="https://www.eastcoastmodular.co.uk">← Shop</a>
+  </header>
+
+  <div class="page">
+    <h1 class="page__title">Module files</h1>
+    <p class="page__subtitle">Manuals and panel artwork for all ECM modules</p>
+
+    <div class="module-grid">
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Beehive</div>
+          <div class="module-card__base">Based on Plaits</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Beehive%20(Plaits)/ECM_BEEHIVE.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Beehive%20(Plaits)/BeehiveFRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Beehive%20(Plaits)/BeehiveBack.TIFF" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Colludes</div>
+          <div class="module-card__base">Based on Clouds</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Colludes%20(Clouds)/ECM_COLLUDES.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Colludes%20(Clouds)/ColludesFRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Colludes%20(Clouds)/ColludesBACK.TIFF" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Loos Joints</div>
+          <div class="module-card__base">Based on µO_C</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Loos%20Joints%20(uO_c)/ECM_LOOS_JOINTS.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Loos%20Joints%20(uO_c)/O_CFRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Marples</div>
+          <div class="module-card__base">Based on Marbles</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Marples%20(Marbles)/ECM_MARPLES.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Marples%20(Marbles)/MarplesFRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Marples%20(Marbles)/MarplesBACK.TIFF" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Monsoon</div>
+          <div class="module-card__base">Based on Clouds</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Monsoon%20(Clouds)/ECM_MONSOON.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Monsoon%20(Clouds)/MONSOON_FRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Monsoon%20(Clouds)/MONSOON_BACK.tiff" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Monsoon DIY</div>
+          <div class="module-card__base">Based on Clouds · DIY build</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download btn-download--secondary" href="Monsoon_DIY/MONSOON_DIY_BACK.tiff" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Pachinko</div>
+          <div class="module-card__base">Based on Marbles</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Pachinko%20(Marbles)/ECM_PACHINKO.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Pachinko%20(Marbles)/PACHINKO_FRONT.tiff" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Pachinko%20(Marbles)/PACHINKO_BACK.tiff" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Performer</div>
+          <div class="module-card__base">ECM original</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Performer/ECM_PERFORMER.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Performer/PerformerFRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Performer/PerformerBACK.TIFF" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Pilates</div>
+          <div class="module-card__base">Based on Plaits</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Pilates%20(Plaits)/ECM_PILATES.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Pilates%20(Plaits)/PilatesFRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Pilates%20(Plaits)/PilatesBACK.TIFF" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Vales</div>
+          <div class="module-card__base">Based on Veils</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Vales%20(Veils)/ECM_VALES.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Vales%20(Veils)/ValesFRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Vales%20(Veils)/ValesBACK.TIFF" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+      <div class="module-card">
+        <div>
+          <div class="module-card__name">Worps</div>
+          <div class="module-card__base">Based on Warps</div>
+        </div>
+        <div class="module-card__divider"></div>
+        <div class="module-card__files">
+          <a class="btn-download" href="Worps%20(Warps)/ECM_WORPS.pdf" download>
+            <span class="btn-type">PDF</span>Manual
+          </a>
+          <a class="btn-download btn-download--secondary" href="Worps%20(Warps)/WorpsFRONT.TIFF" download>
+            <span class="btn-type">TIFF</span>Front panel
+          </a>
+          <a class="btn-download btn-download--secondary" href="Worps%20(Warps)/WorpsBACK.TIFF" download>
+            <span class="btn-type">TIFF</span>Back panel
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <footer class="footer">
+    <span>storage.eastcoastmodular.co.uk</span>
+    <a href="https://www.eastcoastmodular.co.uk">eastcoastmodular.co.uk</a>
+  </footer>
+
+</body>
+</html>
