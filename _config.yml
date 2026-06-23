@@ -15,6 +15,3 @@ exclude:
   - README.md
   - LICENSE
   - .gitignore
-
-# Enable collections for file organization
-collections_dir: files
