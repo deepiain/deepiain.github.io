@@ -107,6 +107,11 @@
       background: rgba(var(--color-foreground), 0.025);
     }
 
+    /* Bold divider at the start of each new module group */
+    .file-table tbody tr.module-start td {
+      border-top: 2px solid rgba(var(--color-foreground), 0.55);
+    }
+
     .file-table tbody td {
       padding: 0.85rem 1.5rem 0.85rem 0;
       vertical-align: middle;
@@ -238,6 +243,7 @@
       </thead>
       <tbody>
         {% assign module_files = site.static_files | sort: "path" %}
+        {% assign prev_folder = "" %}
         {% for file in module_files %}
           {% assign parts = file.path | split: "/" %}
           {% if parts.size >= 4 %}
@@ -249,7 +255,9 @@
               {% assign ext = file.extname | downcase %}
               {% if ext == ".pdf" or ext == ".zip" or ext == ".tiff" or ext == ".tif" or ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" %}
               {% assign safe_path = file.path | replace: " ", "%20" | replace: "(", "%28" | replace: ")", "%29" %}
-        <tr>
+              {% if folder != prev_folder and prev_folder != "" %}{% assign row_class = "module-start" %}{% else %}{% assign row_class = "" %}{% endif %}
+              {% assign prev_folder = folder %}
+        <tr class="{{ row_class }}">
           <td class="col-module">
             {{ module_name }}
             {% if base_raw != "" %}<span class="col-base">{{ base_raw }}</span>{% endif %}
