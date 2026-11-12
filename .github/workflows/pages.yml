@@ -30,6 +30,11 @@ jobs:
         with:
           source: ./
           destination: ./_site
+      - name: Strip TIFFs from published site (served from GitHub raw host instead)
+        run: |
+          echo "Site size before: $(du -sh ./_site | cut -f1)"
+          find ./_site -type f \( -iname '*.tiff' -o -iname '*.tif' \) -delete
+          echo "Site size after:  $(du -sh ./_site | cut -f1)"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 

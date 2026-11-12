@@ -255,6 +255,12 @@
               {% assign ext = file.extname | downcase %}
               {% if ext == ".pdf" or ext == ".zip" or ext == ".tiff" or ext == ".tif" or ext == ".jpg" or ext == ".jpeg" or ext == ".png" or ext == ".webp" %}
               {% assign safe_path = file.path | replace: " ", "%20" | replace: "(", "%28" | replace: ")", "%29" %}
+              {% comment %} TIFFs are large, so they're excluded from the published site and served from GitHub's raw file host instead. {% endcomment %}
+              {% if ext == ".tiff" or ext == ".tif" %}
+                {% assign dl_href = safe_path | prepend: "https://raw.githubusercontent.com/deepiain/deepiain.github.io/main" %}
+              {% else %}
+                {% assign dl_href = safe_path %}
+              {% endif %}
               {% if folder != prev_folder and prev_folder != "" %}{% assign row_class = "module-start" %}{% else %}{% assign row_class = "" %}{% endif %}
               {% assign prev_folder = folder %}
         <tr class="{{ row_class }}">
@@ -282,7 +288,7 @@
           </td>
           <td>
             <a class="btn-dl{% if ext == '.pdf' %} btn-dl--pdf{% endif %}"
-               href="{{ safe_path }}" download>
+               href="{{ dl_href }}" download>
               {% if ext == ".pdf" %}Product info{% else %}Download{% endif %}
             </a>
           </td>
