@@ -268,8 +268,16 @@
               <span class="badge badge--pdf">PDF</span>
             {% elsif ext == ".zip" %}
               <span class="badge">ZIP</span>
-            {% else %}
+            {% elsif ext == ".tiff" or ext == ".tif" %}
               <span class="badge">TIFF</span>
+            {% elsif ext == ".jpg" or ext == ".jpeg" %}
+              <span class="badge">JPG</span>
+            {% elsif ext == ".png" %}
+              <span class="badge">PNG</span>
+            {% elsif ext == ".webp" %}
+              <span class="badge">WEBP</span>
+            {% else %}
+              <span class="badge">IMAGE</span>
             {% endif %}
           </td>
           <td>
